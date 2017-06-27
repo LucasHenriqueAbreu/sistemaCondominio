@@ -21,9 +21,6 @@ public class Categoria implements Serializable{
     @Column(name = "descricao", length = 50, nullable = false)
     private String descricao;
     
-    @Transient
-    private String teste;
-
     public Categoria() {
     }
 

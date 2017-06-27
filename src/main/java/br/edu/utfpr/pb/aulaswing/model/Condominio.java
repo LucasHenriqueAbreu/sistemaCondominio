@@ -26,10 +26,10 @@ public class Condominio {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(length = 100, nullable = false)
+    @Column(name = "nome", length = 100, nullable = false)
     private String nome;
     
-    @Column(nullable = false)
+    @Column(name = "capacidade",nullable = false)
     private Integer capacidade;
     
     @Convert(converter = BooleanConverter.class)

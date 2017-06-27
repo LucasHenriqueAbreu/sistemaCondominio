@@ -1,7 +1,9 @@
 package br.edu.utfpr.pb.aulaswing.model;
 
+import br.edu.utfpr.pb.aulaswing.util.BooleanConverter;
 import java.util.Objects;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,15 +25,19 @@ public class Moradia {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(length = 100, nullable = false)
+    @Column(name = "sobrenome",length = 100, nullable = false)
     private String sobrenome;
     
-    @Column(nullable = false)
+    @Column(name = "quantidade_moradores", nullable = false)
     private Integer quantidadeMoradores;
     
     @ManyToOne
     @JoinColumn(name = "condominio", referencedColumnName = "id")
     private Condominio condominio;
+    
+    @Convert(converter = BooleanConverter.class)
+    @Column(columnDefinition = "char(1) default 'T'")
+    private Boolean ativo;
 
     public Long getId() {
         return id;
@@ -65,13 +71,22 @@ public class Moradia {
         this.condominio = condominio;
     }
 
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 73 * hash + Objects.hashCode(this.id);
-        hash = 73 * hash + Objects.hashCode(this.sobrenome);
-        hash = 73 * hash + Objects.hashCode(this.quantidadeMoradores);
-        hash = 73 * hash + Objects.hashCode(this.condominio);
+        hash = 83 * hash + Objects.hashCode(this.id);
+        hash = 83 * hash + Objects.hashCode(this.sobrenome);
+        hash = 83 * hash + Objects.hashCode(this.quantidadeMoradores);
+        hash = 83 * hash + Objects.hashCode(this.condominio);
+        hash = 83 * hash + Objects.hashCode(this.ativo);
         return hash;
     }
 
@@ -99,8 +114,13 @@ public class Moradia {
         if (!Objects.equals(this.condominio, other.condominio)) {
             return false;
         }
+        if (!Objects.equals(this.ativo, other.ativo)) {
+            return false;
+        }
         return true;
     }
+
+    
 
     @Override
     public String toString() {
