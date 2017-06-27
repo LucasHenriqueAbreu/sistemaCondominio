@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="listarCategoria" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="529f4043-414d-4772-9cb9-fb3bb85c9223">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="1"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="TITULO" class="java.lang.String"/>
+	<parameter name="IMAGEM" class="java.awt.Image"/>
+	<field name="id" class="java.lang.Long"/>
+	<field name="descricao" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="174" y="10" width="241" height="34" uuid="941d299b-66b7-4e62-9d39-5bfabda4f9e5"/>
+				<textElement>
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Sistema de Cadastros]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="193" y="44" width="211" height="24" uuid="bfd4533e-779d-499a-a42b-fea5bf4710b2"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{TITULO}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="0" y="0" width="143" height="79" uuid="44ae02bb-2cbe-48fb-b337-05326cdf3c44"/>
+				<imageExpression><![CDATA[$P{IMAGEM}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="41" splitType="Stretch">
+			<staticText>
+				<reportElement x="43" y="21" width="100" height="20" uuid="be34bb71-0756-499d-bf19-798d34902490"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="308" y="21" width="100" height="20" uuid="b0fd4838-10a6-4513-a2ab-cadd5e76ec4d"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descrição]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<textField>
+				<reportElement x="43" y="0" width="100" height="17" uuid="4c5ee367-1933-4125-a769-3aad4c02a527"/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="308" y="0" width="100" height="17" uuid="06528a24-5330-4f9d-92dc-d4a8bd341efa"/>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="50">
+			<textField>
+				<reportElement x="400" y="22" width="80" height="20" uuid="8f08d195-51a1-43a6-b619-c1ae08abb975"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="480" y="22" width="40" height="20" uuid="f2418a5b-4dbf-4f57-a25e-1b40579b871f"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy HH:mm:ss">
+				<reportElement x="25" y="22" width="100" height="20" uuid="cb1891ee-e644-4855-8cdc-7a305e748e32"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="430" y="22" width="100" height="20" uuid="d0ae3f73-1575-4b2b-82c5-fbfdf228e91f"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="341" y="22" width="100" height="20" uuid="2980c6e4-f79a-4d9d-b8af-53a366ffc474"/>
+				<text><![CDATA[Total de Páginas:]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>
