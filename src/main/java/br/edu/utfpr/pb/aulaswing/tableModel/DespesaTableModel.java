@@ -7,7 +7,7 @@ import javax.swing.table.AbstractTableModel;
 
 public class DespesaTableModel extends AbstractTableModel{
     private List<Despesa> lista;
-    private String[] colunas = {"Código", "Paga", "Data Lançamento", "Data Vencimento", "Moradia"};
+    private String[] colunas = {"Código", "Data Lançamento", "Data Vencimento", "Moradia"};
     
     public DespesaTableModel(){
         lista = new ArrayList<>();
@@ -30,7 +30,6 @@ public class DespesaTableModel extends AbstractTableModel{
     public Object getValueAt(int rowIndex, int columnIndex) {
         switch(columnIndex){
             case 0: return lista.get(rowIndex).getId();
-            case 1: return lista.get(rowIndex).getPaga();
             case 2: return lista.get(rowIndex).getDataLancamento();
             case 3: return lista.get(rowIndex).getDataVencimento();
             case 5: return lista.get(rowIndex).getMoradia().getSobrenome();

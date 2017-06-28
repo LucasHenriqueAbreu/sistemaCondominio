@@ -5,13 +5,11 @@
  */
 package br.edu.utfpr.pb.aulaswing.model;
 
-import br.edu.utfpr.pb.aulaswing.util.BooleanConverter;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import javax.persistence.Column;
-import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,10 +32,6 @@ public class Despesa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Convert(converter = BooleanConverter.class)
-    @Column(columnDefinition = "char(1) default 'T'")
-    private Boolean paga;
-    
     @Temporal(TemporalType.DATE)
     private Date dataLancamento;
     
@@ -48,8 +42,7 @@ public class Despesa {
     @JoinColumn(name = "moradia", referencedColumnName = "id")
     private Moradia moradia;
     
-    @OneToMany
-    @JoinColumn(name = "despesa", referencedColumnName = "id")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "despesa")
     private List<DespesaItem> despesas;
 
     public Long getId() {
@@ -58,14 +51,6 @@ public class Despesa {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Boolean getPaga() {
-        return paga;
-    }
-
-    public void setPaga(Boolean paga) {
-        this.paga = paga;
     }
 
     public Date getDataLancamento() {
@@ -104,7 +89,6 @@ public class Despesa {
     public int hashCode() {
         int hash = 7;
         hash = 71 * hash + Objects.hashCode(this.id);
-        hash = 71 * hash + Objects.hashCode(this.paga);
         hash = 71 * hash + Objects.hashCode(this.dataLancamento);
         hash = 71 * hash + Objects.hashCode(this.dataVencimento);
         hash = 71 * hash + Objects.hashCode(this.moradia);
@@ -125,9 +109,6 @@ public class Despesa {
         }
         final Despesa other = (Despesa) obj;
         if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        if (!Objects.equals(this.paga, other.paga)) {
             return false;
         }
         if (!Objects.equals(this.dataLancamento, other.dataLancamento)) {

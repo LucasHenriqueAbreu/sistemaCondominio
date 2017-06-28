@@ -42,7 +42,7 @@ public class DespesaItem {
     @JoinColumn(name = "despesa", referencedColumnName = "id")
     private Despesa despesa;
     
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "categoria", referencedColumnName = "id")
     private Categoria categoria;
 

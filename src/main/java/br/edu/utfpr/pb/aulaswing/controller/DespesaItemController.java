@@ -15,7 +15,7 @@ public class DespesaItemController {
         despesaItemDao = new DespesaItensDao();
     }
     
-    public List<DespesaItem> findByDespesa(Integer id) {
+    public List<DespesaItem> findByDespesa(Long id) {
         return despesaItemDao.findByDespesa(id);
     }
    

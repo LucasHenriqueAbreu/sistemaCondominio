@@ -11,11 +11,13 @@ import br.edu.utfpr.pb.aulaswing.controller.DespesaController;
 import br.edu.utfpr.pb.aulaswing.controller.MoradiaController;
 import br.edu.utfpr.pb.aulaswing.model.Categoria;
 import br.edu.utfpr.pb.aulaswing.model.Despesa;
+import br.edu.utfpr.pb.aulaswing.model.DespesaItem;
 import br.edu.utfpr.pb.aulaswing.model.Moradia;
 import br.edu.utfpr.pb.aulaswing.tableModel.DespesaItemTableModel;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -32,9 +34,7 @@ public class FrmCadastroDespesa extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.despesa = new Despesa();
-        
-        radioGroup.add(rbtPendente);
-        radioGroup.add(rbtPago);
+        this.despesa.setDespesas(new ArrayList<>());
         
         MoradiaController moradiaController = 
                 new MoradiaController();
@@ -63,7 +63,7 @@ public class FrmCadastroDespesa extends javax.swing.JDialog {
             }
         });
         
-        carregarDados(this.despesa);
+        
     }
 
     /**
@@ -79,9 +79,6 @@ public class FrmCadastroDespesa extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
-        jPanel2 = new javax.swing.JPanel();
-        rbtPendente = new javax.swing.JRadioButton();
-        rbtPago = new javax.swing.JRadioButton();
         cmbMoradia = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -96,6 +93,11 @@ public class FrmCadastroDespesa extends javax.swing.JDialog {
         jLabel6 = new javax.swing.JLabel();
         txtValor = new javax.swing.JTextField();
         txtQuantidade = new javax.swing.JTextField();
+        btnAdicionar = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        txtDescricao = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        txtIdDespesaItem = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblItensDespesa = new javax.swing.JTable();
@@ -108,31 +110,6 @@ public class FrmCadastroDespesa extends javax.swing.JDialog {
         jLabel1.setText("Código:");
 
         txtId.setEditable(false);
-
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Situação:"));
-
-        rbtPendente.setSelected(true);
-        rbtPendente.setText("Pendente");
-
-        rbtPago.setText("Pago");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(rbtPendente)
-                    .addComponent(rbtPago))
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(rbtPendente)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rbtPago))
-        );
 
         cmbMoradia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -150,7 +127,6 @@ public class FrmCadastroDespesa extends javax.swing.JDialog {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
@@ -178,8 +154,7 @@ public class FrmCadastroDespesa extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbMoradia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         btnSalvar.setText("Salvar");
@@ -226,6 +201,21 @@ public class FrmCadastroDespesa extends javax.swing.JDialog {
 
         txtQuantidade.setText("jTextField1");
 
+        btnAdicionar.setText("Adicionar");
+        btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdicionarActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Descrição:");
+
+        txtDescricao.setText("jTextField1");
+
+        jLabel8.setText("Código:");
+
+        txtIdDespesaItem.setText("jTextField1");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -233,23 +223,33 @@ public class FrmCadastroDespesa extends javax.swing.JDialog {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnAdicionar))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtValor)
                             .addComponent(cmbCategoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtQuantidade))))
+                            .addComponent(txtQuantidade)
+                            .addComponent(txtDescricao)
+                            .addComponent(txtIdDespesaItem))))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(txtIdDespesaItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
@@ -260,7 +260,14 @@ public class FrmCadastroDespesa extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnAdicionar)
+                .addContainerGap())
         );
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Lista de Despesas"));
@@ -323,6 +330,7 @@ public class FrmCadastroDespesa extends javax.swing.JDialog {
             
             moradiaController.salvar( getDespesa() );
 
+            
             this.setVisible(false);
         } catch (Exception e) {
             e.printStackTrace();
@@ -332,6 +340,10 @@ public class FrmCadastroDespesa extends javax.swing.JDialog {
                 JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
+        despesa.getDespesas().add(getDespesaItem());
+    }//GEN-LAST:event_btnAdicionarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -377,6 +389,7 @@ public class FrmCadastroDespesa extends javax.swing.JDialog {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdicionar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JComboBox<String> cmbCategoria;
@@ -387,17 +400,18 @@ public class FrmCadastroDespesa extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.ButtonGroup radioGroup;
-    private javax.swing.JRadioButton rbtPago;
-    private javax.swing.JRadioButton rbtPendente;
     private javax.swing.JTable tblItensDespesa;
+    private javax.swing.JTextField txtDescricao;
     private javax.swing.JTextField txtId;
+    private javax.swing.JTextField txtIdDespesaItem;
     private javax.swing.JTextField txtQuantidade;
     private javax.swing.JTextField txtValor;
     private javax.swing.JFormattedTextField txtVencimento;
@@ -410,8 +424,9 @@ public class FrmCadastroDespesa extends javax.swing.JDialog {
         despesa = despesaController.buscar(id);
         txtId.setText(despesa.getId().toString());
         txtVencimento.setText(despesa.getDataVencimento().toString());
-        rbtPago.setSelected( !despesa.getPaga());
         cmbMoradia.setSelectedItem(despesa.getMoradia());
+        
+        carregarDados(this.despesa);
     }
     
     private Despesa getDespesa(){    
@@ -419,26 +434,33 @@ public class FrmCadastroDespesa extends javax.swing.JDialog {
             despesa.setId( Long.parseLong(txtId.getText()));
         }
         despesa.setDataLancamento(new Date());
-        despesa.setPaga(rbtPago.isSelected());
-        despesa.setDespesa((Despesa) cmbDespesa.getSelectedItem() );
         return despesa;
     }
     
+    private DespesaItem getDespesaItem(){    
+        DespesaItem despesaItem = new DespesaItem();
+        if (!txtIdDespesaItem.getText().isEmpty()){
+            despesaItem.setId( Long.parseLong(txtIdDespesaItem.getText()));
+        }
+        despesaItem.setDescricao(txtDescricao.getText());
+        despesaItem.setValor(Double.parseDouble(txtValor.getText()));
+        despesaItem.setQuantidade(Integer.parseInt(txtQuantidade.getText()));
+        despesaItem.setCategoria((Categoria) cmbCategoria.getSelectedItem());
+        return despesaItem;
+    }
+    
     private void carregarDados(Despesa despesa) {
-        DespesaItemController controller = 
-                new DespesaItemController();
-        despesaItemTableModel = new DespesaItemTableModel(controller.findByDespesa(Integer.parseInt(despesa.getId())));
+        despesaItemTableModel = new DespesaItemTableModel(despesa.getDespesas());
         tblItensDespesa.setModel(despesaItemTableModel);
         despesaItemTableModel.fireTableDataChanged();
     }
     
     private void preparaEdicao() {
-        txtId.setText(despesaItemTableModel.getValueAt(tblDespesaItenss.getSelectedRow(), 0).toString());
-        txtNome.setText(despesaItemTableModel.getValueAt(tblDespesaItenss.getSelectedRow(), 1).toString());
-        txtNome.setText(despesaItemTableModel.getValueAt(tblDespesaItenss.getSelectedRow(), 2).toString());
-        txtCep.setText(despesaItemTableModel.getValueAt(tblDespesaItenss.getSelectedRow(), 3).toString());
-        txtCpf.setText(despesaItemTableModel.getValueAt(tblDespesaItenss.getSelectedRow(), 4).toString());
-        txtEmail.setText(despesaItemTableModel.getValueAt(tblDespesaItenss.getSelectedRow(), 5).toString());
-        txtEndereco.setText(despesaItemTableModel.getValueAt(tblDespesaItenss.getSelectedRow(), 6).toString());
+        /*"Código", "Descrição", "Valor", "Quantidade", "Categoria"*/
+        txtIdDespesaItem.setText(despesaItemTableModel.getValueAt(tblItensDespesa.getSelectedRow(), 0).toString());
+        txtDescricao.setText(despesaItemTableModel.getValueAt(tblItensDespesa.getSelectedRow(), 1).toString());
+        txtValor.setText(despesaItemTableModel.getValueAt(tblItensDespesa.getSelectedRow(), 2).toString());
+        txtQuantidade.setText(despesaItemTableModel.getValueAt(tblItensDespesa.getSelectedRow(), 3).toString());
+        /*cmbCategoria.setText(despesaItemTableModel.getValueAt(tblItensDespesa.getSelectedRow(), 4).toString());*/
     }
 }

@@ -1,26 +1,23 @@
 package br.edu.utfpr.pb.aulaswing.main;
 
 import br.edu.utfpr.pb.aulaswing.controller.CategoriaController;
-import br.edu.utfpr.pb.aulaswing.report.GerarRelatorio;
+import br.edu.utfpr.pb.aulaswing.controller.CondominioController;
 import br.edu.utfpr.pb.aulaswing.tableModel.CategoriaTableModel;
-import java.awt.Image;
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
-import javax.swing.ImageIcon;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.view.JasperViewer;
+import br.edu.utfpr.pb.aulaswing.tableModel.CondominioTableModel;
+import javax.swing.JOptionPane;
 
-public class FrmControlarCategoria extends javax.swing.JFrame {
+/**
+ *
+ * @author Lucas Henrique de Abreu
+ */
+public class FrmControlarCategoria extends javax.swing.JInternalFrame {
     private CategoriaTableModel categoriaTableModel;
     
     /**
-     * Creates new form FrmControlarCategoria
+     * Creates new form FrmControlarCondominio
      */
     public FrmControlarCategoria() {
-        
         initComponents();
-        
         carregarDados();
     }
 
@@ -45,7 +42,9 @@ public class FrmControlarCategoria extends javax.swing.JFrame {
         btnImprimir = new javax.swing.JButton();
         btnGrafico = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setClosable(true);
+        setIconifiable(true);
+        setTitle("Lista de Usuários");
 
         btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/edu/utfpr/pb/aulaswing/image/buscar.png"))); // NOI18N
         btnPesquisar.setText("Pesquisar");
@@ -61,10 +60,10 @@ public class FrmControlarCategoria extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -88,18 +87,32 @@ public class FrmControlarCategoria extends javax.swing.JFrame {
 
         btnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/edu/utfpr/pb/aulaswing/image/adicionar.png"))); // NOI18N
         btnIncluir.setText("Incluir...");
-
-        btnEditar.setText("Editar...");
-
-        btnExcluir.setText("Excluir");
-
-        btnImprimir.setText("Imprimir");
-        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+        btnIncluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnImprimirActionPerformed(evt);
+                btnIncluirActionPerformed(evt);
             }
         });
 
+        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/edu/utfpr/pb/aulaswing/image/editar.png"))); // NOI18N
+        btnEditar.setText("Editar...");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
+
+        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/edu/utfpr/pb/aulaswing/image/remover.png"))); // NOI18N
+        btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
+
+        btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/edu/utfpr/pb/aulaswing/image/relatorio.png"))); // NOI18N
+        btnImprimir.setText("Imprimir");
+
+        btnGrafico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/edu/utfpr/pb/aulaswing/image/sistema.png"))); // NOI18N
         btnGrafico.setText("Gráfico");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -108,14 +121,14 @@ public class FrmControlarCategoria extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnIncluir)
-                .addGap(18, 18, 18)
+                .addComponent(btnIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEditar)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnExcluir)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnImprimir)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnGrafico)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -127,7 +140,7 @@ public class FrmControlarCategoria extends javax.swing.JFrame {
                     .addComponent(btnIncluir)
                     .addComponent(btnEditar)
                     .addComponent(btnExcluir)
-                    .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnImprimir)
                     .addComponent(btnGrafico))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -139,8 +152,9 @@ public class FrmControlarCategoria extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -148,9 +162,9 @@ public class FrmControlarCategoria extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -160,67 +174,80 @@ public class FrmControlarCategoria extends javax.swing.JFrame {
         carregarDados();
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
-    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+    private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
+        FrmCadastroCondominio frm = 
+                new FrmCadastroCondominio(null, true);
+        frm.setLocationRelativeTo(null);
+        frm.setVisible(true);
+        
+        carregarDados();
+    }//GEN-LAST:event_btnIncluirActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         try {
-            GerarRelatorio relatorio = new GerarRelatorio();
-            InputStream arquivo = 
-                this.getClass()
-                    .getResourceAsStream(
-                        "/report/listarCategoria.jasper");
-            Map<String,Object> parametros = new HashMap<>();
-            parametros.put("TITULO", ".:: Relatório de Categorias::.");
-            Image imagem = new ImageIcon(
-                    this.getClass()
-                    .getResource(
-                     "/br/edu/utfpr/pb/aulaswing/image/logo_utfpr1.jpg")
-                ).getImage();
-            parametros.put("IMAGEM", imagem);
-            
-            CategoriaController categoriaController = new CategoriaController();
-            JasperViewer viewer = relatorio.gerarRelatorio(
-                    new JRBeanCollectionDataSource(
-                            categoriaController.listar()), 
-                    parametros, arquivo);
-            viewer.setVisible(true);
+            if (tblDados.getSelectedRow() >= 0){
+                Long id = Long.parseLong( 
+                     categoriaTableModel.getValueAt(
+                     tblDados.getSelectedRow(),0).toString());
+                FrmCadastroCondominio frm = 
+                        new FrmCadastroCondominio(null, true);
+                frm.setLocationRelativeTo(null);
+                frm.setCondominio(id);
+                frm.setVisible(true);
+        
+                carregarDados();
+            }else{
+                JOptionPane.showMessageDialog(
+                    this,"Selecione um produto!",
+                    "Sistema de cadastro - Atenção",
+                    JOptionPane.INFORMATION_MESSAGE);
+            }
         } catch (Exception e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(
+                    this,"Ocorreu um erro!",
+                    "Sistema de cadastro - Erro",
+                    JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_btnImprimirActionPerformed
+    }//GEN-LAST:event_btnEditarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
+            if (tblDados.getSelectedRow() >= 0){
+                
+                if (JOptionPane.showConfirmDialog(
+                    rootPane,
+                    "Deseja excluir o registro?!",
+                    "Sistema de Cadastro - Atenção",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.ERROR_MESSAGE) == 
+                        JOptionPane.YES_OPTION){
+                    
+                    Long id = Long.parseLong( 
+                    categoriaTableModel.getValueAt(
+                     tblDados.getSelectedRow(),0).toString());
+                    CondominioController condominioController = 
+                               new CondominioController();
+                    condominioController.remover(id);
+                    //carregarDados(); //OU
+                    categoriaTableModel.removeRow(
+                            tblDados.getSelectedRow());
                 }
+            }else{
+                JOptionPane.showMessageDialog(
+                    this,"Selecione um produto!",
+                    "Sistema de cadastro - Atenção",
+                    JOptionPane.INFORMATION_MESSAGE);
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmControlarCategoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmControlarCategoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmControlarCategoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmControlarCategoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(
+                    this,"Ocorreu um erro!",
+                    "Sistema de cadastro - Erro",
+                    JOptionPane.ERROR_MESSAGE);
         }
-        //</editor-fold>
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FrmControlarCategoria().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;

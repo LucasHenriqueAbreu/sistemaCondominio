@@ -10,8 +10,8 @@ import javax.persistence.Query;
  */
 public class DespesaItensDao extends GenericDao<DespesaItem, Long>{
     
-     public List<DespesaItem> findByDespesa(Integer id){
-        Query query = em.createQuery("from despesa_item d "
+     public List<DespesaItem> findByDespesa(Long id){
+        Query query = em.createQuery("from DespesaItem d "
                 + " where d.despesa=:id");
         query.setParameter("despesa", id);
         

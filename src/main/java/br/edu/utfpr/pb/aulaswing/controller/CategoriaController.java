@@ -18,4 +18,17 @@ public class CategoriaController {
     public List<Object[]> getCategoriaProdutos() {
         return categoriaDao.getCategoriaProdutos();
     }
+    
+    public void salvar(Categoria categoria) throws Exception {
+        if ( categoria.getId() != null ){
+            categoriaDao.update(categoria);
+        }else{
+            categoriaDao.insert(categoria);
+        }
+    }
+    
+    public Categoria buscar(Long id) {
+        return categoriaDao.findById(id);
+    }
+
 }
