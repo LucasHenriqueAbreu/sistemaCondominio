@@ -6,9 +6,11 @@
 package br.edu.utfpr.pb.aulaswing.main;
 
 import br.edu.utfpr.pb.aulaswing.controller.CategoriaController;
+import br.edu.utfpr.pb.aulaswing.controller.ContaController;
 import br.edu.utfpr.pb.aulaswing.controller.DespesaController;
 import br.edu.utfpr.pb.aulaswing.controller.MoradiaController;
 import br.edu.utfpr.pb.aulaswing.model.Categoria;
+import br.edu.utfpr.pb.aulaswing.model.Conta;
 import br.edu.utfpr.pb.aulaswing.model.Despesa;
 import br.edu.utfpr.pb.aulaswing.model.DespesaItem;
 import br.edu.utfpr.pb.aulaswing.model.Moradia;
@@ -330,8 +332,10 @@ public class FrmCadastroDespesa extends javax.swing.JDialog {
             new DespesaController();
             
             despesaController.salvar( getDespesa() );
-
-            
+            ContaController contaController = new ContaController();
+            Conta conta = new Conta();
+            conta.setDespesa(despesa);
+            contaController.salvar(conta);
             this.setVisible(false);
         } catch (Exception e) {
             e.printStackTrace();

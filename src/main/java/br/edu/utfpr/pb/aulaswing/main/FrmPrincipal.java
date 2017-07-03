@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.edu.utfpr.pb.aulaswing.main;
 
 import br.edu.utfpr.pb.aulaswing.db.DatabaseConnection;
@@ -16,18 +11,11 @@ import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 import net.sf.jasperreports.view.JasperViewer;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartFrame;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.general.DefaultPieDataset;
 
 /**
  *
@@ -81,6 +69,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
 
@@ -139,6 +128,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuItem6);
+
+        jMenuItem7.setText("Contas");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem7);
 
         mnuPrincipal.add(jMenu1);
 
@@ -289,6 +286,24 @@ public class FrmPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+         try {
+            FrmControlarConta frm = new FrmControlarConta();
+
+            Dimension size = jdpPrincipal.getSize();
+            Dimension fSize = frm.getSize();
+            frm.setLocation((size.width - fSize.width)/2,
+                (size.height - fSize.height)/2 );
+
+            jdpPrincipal.add(frm);
+            frm.setVisible(true);
+            frm.moveToFront();
+            frm.setSelected(true);
+        } catch (PropertyVetoException ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -333,6 +348,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JDesktopPane jdpPrincipal;
     private javax.swing.JMenuBar mnuPrincipal;
     // End of variables declaration//GEN-END:variables
