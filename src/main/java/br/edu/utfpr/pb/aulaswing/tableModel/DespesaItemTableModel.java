@@ -33,7 +33,7 @@ public class DespesaItemTableModel extends AbstractTableModel{
             case 1: return lista.get(rowIndex).getDescricao();
             case 2: return lista.get(rowIndex).getValor();
             case 3: return lista.get(rowIndex).getQuantidade();
-            case 5: return lista.get(rowIndex).getCategoria().getDescricao();
+            case 4: return lista.get(rowIndex).getCategoria().getDescricao();
         }
         return null;
     }

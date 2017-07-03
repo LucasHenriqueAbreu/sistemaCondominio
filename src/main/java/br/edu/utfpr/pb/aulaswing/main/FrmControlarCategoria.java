@@ -1,12 +1,10 @@
 package br.edu.utfpr.pb.aulaswing.main;
 
 import br.edu.utfpr.pb.aulaswing.controller.CategoriaController;
-import br.edu.utfpr.pb.aulaswing.controller.CondominioController;
 import br.edu.utfpr.pb.aulaswing.tableModel.CategoriaTableModel;
-import br.edu.utfpr.pb.aulaswing.tableModel.CondominioTableModel;
 import javax.swing.JOptionPane;
 
-/**
+/**I
  *
  * @author Lucas Henrique de Abreu
  */
@@ -14,7 +12,7 @@ public class FrmControlarCategoria extends javax.swing.JInternalFrame {
     private CategoriaTableModel categoriaTableModel;
     
     /**
-     * Creates new form FrmControlarCondominio
+     * Creates new form FrmControlarCategoria
      */
     public FrmControlarCategoria() {
         initComponents();
@@ -175,8 +173,8 @@ public class FrmControlarCategoria extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
-        FrmCadastroCondominio frm = 
-                new FrmCadastroCondominio(null, true);
+        FrmCadastroCategoria frm = 
+                new FrmCadastroCategoria(null, true);
         frm.setLocationRelativeTo(null);
         frm.setVisible(true);
         
@@ -189,10 +187,10 @@ public class FrmControlarCategoria extends javax.swing.JInternalFrame {
                 Long id = Long.parseLong( 
                      categoriaTableModel.getValueAt(
                      tblDados.getSelectedRow(),0).toString());
-                FrmCadastroCondominio frm = 
-                        new FrmCadastroCondominio(null, true);
+                FrmCadastroCategoria frm = 
+                        new FrmCadastroCategoria(null, true);
                 frm.setLocationRelativeTo(null);
-                frm.setCondominio(id);
+                frm.setCategoria(id);
                 frm.setVisible(true);
         
                 carregarDados();
@@ -226,9 +224,9 @@ public class FrmControlarCategoria extends javax.swing.JInternalFrame {
                     Long id = Long.parseLong( 
                     categoriaTableModel.getValueAt(
                      tblDados.getSelectedRow(),0).toString());
-                    CondominioController condominioController = 
-                               new CondominioController();
-                    condominioController.remover(id);
+                    CategoriaController CategoriaController = 
+                               new CategoriaController();
+                    CategoriaController.remover(id);
                     //carregarDados(); //OU
                     categoriaTableModel.removeRow(
                             tblDados.getSelectedRow());

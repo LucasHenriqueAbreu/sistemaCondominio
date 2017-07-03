@@ -1,7 +1,7 @@
 package br.edu.utfpr.pb.aulaswing.main;
 
-import br.edu.utfpr.pb.aulaswing.controller.CondominioController;
-import br.edu.utfpr.pb.aulaswing.tableModel.CondominioTableModel;
+import br.edu.utfpr.pb.aulaswing.controller.DespesaController;
+import br.edu.utfpr.pb.aulaswing.tableModel.DespesaTableModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -9,10 +9,10 @@ import javax.swing.JOptionPane;
  * @author Lucas Henrique de Abreu
  */
 public class FrmControlarDespesa extends javax.swing.JInternalFrame {
-    private CondominioTableModel condominioTableModel;
+    private DespesaTableModel despesaTableModel;
     
     /**
-     * Creates new form FrmControlarCondominio
+     * Creates new form FrmControlarDespesa
      */
     public FrmControlarDespesa() {
         initComponents();
@@ -42,7 +42,7 @@ public class FrmControlarDespesa extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("Lista de Usuários");
+        setTitle("Lista de Despesas");
 
         btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/edu/utfpr/pb/aulaswing/image/buscar.png"))); // NOI18N
         btnPesquisar.setText("Pesquisar");
@@ -173,8 +173,8 @@ public class FrmControlarDespesa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
-        FrmCadastroCondominio frm = 
-                new FrmCadastroCondominio(null, true);
+        FrmCadastroDespesa frm = 
+                new FrmCadastroDespesa(null, true);
         frm.setLocationRelativeTo(null);
         frm.setVisible(true);
         
@@ -185,12 +185,12 @@ public class FrmControlarDespesa extends javax.swing.JInternalFrame {
         try {
             if (tblDados.getSelectedRow() >= 0){
                 Long id = Long.parseLong( 
-                     condominioTableModel.getValueAt(
+                     despesaTableModel.getValueAt(
                      tblDados.getSelectedRow(),0).toString());
-                FrmCadastroCondominio frm = 
-                        new FrmCadastroCondominio(null, true);
+                FrmCadastroDespesa frm = 
+                        new FrmCadastroDespesa(null, true);
                 frm.setLocationRelativeTo(null);
-                frm.setCondominio(id);
+                frm.setDespesa(id);
                 frm.setVisible(true);
         
                 carregarDados();
@@ -222,13 +222,13 @@ public class FrmControlarDespesa extends javax.swing.JInternalFrame {
                         JOptionPane.YES_OPTION){
                     
                     Long id = Long.parseLong( 
-                    condominioTableModel.getValueAt(
+                    despesaTableModel.getValueAt(
                      tblDados.getSelectedRow(),0).toString());
-                    CondominioController condominioController = 
-                               new CondominioController();
-                    condominioController.remover(id);
+                    DespesaController despesaController = 
+                               new DespesaController();
+                    despesaController.remover(id);
                     //carregarDados(); //OU
-                    condominioTableModel.removeRow(
+                    despesaTableModel.removeRow(
                             tblDados.getSelectedRow());
                 }
             }else{
@@ -262,12 +262,12 @@ public class FrmControlarDespesa extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     private void carregarDados() {
-        CondominioController controller = 
-                new CondominioController();
-        condominioTableModel = new CondominioTableModel(
+        DespesaController controller = 
+                new DespesaController();
+        despesaTableModel = new DespesaTableModel(
                         controller.listar() );
         
-        tblDados.setModel(condominioTableModel);
-        condominioTableModel.fireTableDataChanged();
+        tblDados.setModel(despesaTableModel);
+        despesaTableModel.fireTableDataChanged();
     }
 }

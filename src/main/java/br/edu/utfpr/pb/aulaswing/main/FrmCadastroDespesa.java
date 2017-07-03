@@ -6,7 +6,6 @@
 package br.edu.utfpr.pb.aulaswing.main;
 
 import br.edu.utfpr.pb.aulaswing.controller.CategoriaController;
-import br.edu.utfpr.pb.aulaswing.controller.DespesaItemController;
 import br.edu.utfpr.pb.aulaswing.controller.DespesaController;
 import br.edu.utfpr.pb.aulaswing.controller.MoradiaController;
 import br.edu.utfpr.pb.aulaswing.model.Categoria;
@@ -14,6 +13,7 @@ import br.edu.utfpr.pb.aulaswing.model.Despesa;
 import br.edu.utfpr.pb.aulaswing.model.DespesaItem;
 import br.edu.utfpr.pb.aulaswing.model.Moradia;
 import br.edu.utfpr.pb.aulaswing.tableModel.DespesaItemTableModel;
+import br.edu.utfpr.pb.aulaswing.util.DataConverter;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -50,7 +50,7 @@ public class FrmCadastroDespesa extends javax.swing.JDialog {
         for (Categoria c : categoriaController.listar() ) {
             modelBox.addElement(c);
         }
-        cmbMoradia.setModel(modelBox);
+        cmbCategoria.setModel(modelBox);
         
         tblItensDespesa.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent me) {
@@ -63,6 +63,7 @@ public class FrmCadastroDespesa extends javax.swing.JDialog {
             }
         });
         
+        carregarDados(despesa);
         
     }
 
@@ -197,9 +198,11 @@ public class FrmCadastroDespesa extends javax.swing.JDialog {
 
         jLabel6.setText("Valor:");
 
-        txtValor.setText("jTextField1");
-
-        txtQuantidade.setText("jTextField1");
+        txtValor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtValorActionPerformed(evt);
+            }
+        });
 
         btnAdicionar.setText("Adicionar");
         btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
@@ -210,11 +213,9 @@ public class FrmCadastroDespesa extends javax.swing.JDialog {
 
         jLabel7.setText("Descrição:");
 
-        txtDescricao.setText("jTextField1");
-
         jLabel8.setText("Código:");
 
-        txtIdDespesaItem.setText("jTextField1");
+        txtIdDespesaItem.setEnabled(false);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -325,10 +326,10 @@ public class FrmCadastroDespesa extends javax.swing.JDialog {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         try {
-            DespesaController moradiaController =
+            DespesaController despesaController =
             new DespesaController();
             
-            moradiaController.salvar( getDespesa() );
+            despesaController.salvar( getDespesa() );
 
             
             this.setVisible(false);
@@ -343,7 +344,12 @@ public class FrmCadastroDespesa extends javax.swing.JDialog {
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
         despesa.getDespesas().add(getDespesaItem());
+        carregarDados(despesa);
     }//GEN-LAST:event_btnAdicionarActionPerformed
+
+    private void txtValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtValorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -434,6 +440,9 @@ public class FrmCadastroDespesa extends javax.swing.JDialog {
             despesa.setId( Long.parseLong(txtId.getText()));
         }
         despesa.setDataLancamento(new Date());
+        despesa.setDataVencimento(DataConverter.getStringToData(
+                txtVencimento.getText()));
+        despesa.setMoradia((Moradia) cmbMoradia.getSelectedItem());
         return despesa;
     }
     
@@ -446,6 +455,7 @@ public class FrmCadastroDespesa extends javax.swing.JDialog {
         despesaItem.setValor(Double.parseDouble(txtValor.getText()));
         despesaItem.setQuantidade(Integer.parseInt(txtQuantidade.getText()));
         despesaItem.setCategoria((Categoria) cmbCategoria.getSelectedItem());
+        despesaItem.setDespesa(this.despesa);
         return despesaItem;
     }
     
@@ -461,6 +471,6 @@ public class FrmCadastroDespesa extends javax.swing.JDialog {
         txtDescricao.setText(despesaItemTableModel.getValueAt(tblItensDespesa.getSelectedRow(), 1).toString());
         txtValor.setText(despesaItemTableModel.getValueAt(tblItensDespesa.getSelectedRow(), 2).toString());
         txtQuantidade.setText(despesaItemTableModel.getValueAt(tblItensDespesa.getSelectedRow(), 3).toString());
-        /*cmbCategoria.setText(despesaItemTableModel.getValueAt(tblItensDespesa.getSelectedRow(), 4).toString());*/
+        cmbCategoria.setSelectedItem(despesaItemTableModel.getValueAt(tblItensDespesa.getSelectedRow(), 4).toString());
     }
 }

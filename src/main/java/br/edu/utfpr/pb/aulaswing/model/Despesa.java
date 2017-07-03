@@ -8,6 +8,7 @@ package br.edu.utfpr.pb.aulaswing.model;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -42,7 +43,7 @@ public class Despesa {
     @JoinColumn(name = "moradia", referencedColumnName = "id")
     private Moradia moradia;
     
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "despesa")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "despesa", cascade = CascadeType.ALL)
     private List<DespesaItem> despesas;
 
     public Long getId() {

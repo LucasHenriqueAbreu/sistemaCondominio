@@ -30,5 +30,9 @@ public class CategoriaController {
     public Categoria buscar(Long id) {
         return categoriaDao.findById(id);
     }
+    
+    public void remover (Long id) throws Exception  {
+        categoriaDao.remove(id);
+    }
 
 }

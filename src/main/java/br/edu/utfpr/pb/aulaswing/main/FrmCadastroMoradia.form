@@ -63,7 +63,7 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="txtSobrenome" pref="293" max="32767" attributes="0"/>
+                  <Component id="txtSobrenome" max="32767" attributes="0"/>
               </Group>
               <Component id="jPanel2" max="32767" attributes="0"/>
               <Group type="102" alignment="0" attributes="0">
@@ -165,7 +165,7 @@
         </Container>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Capacidade de moradias:"/>
+            <Property name="text" type="java.lang.String" value="Capacidade de moradores:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JSpinner" name="spnQuantidadeMoradores">
@@ -202,7 +202,7 @@
                   <Component id="btnSalvar" min="-2" pref="80" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="281" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

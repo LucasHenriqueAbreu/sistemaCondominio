@@ -44,7 +44,7 @@ public class FrmControlarCondominio extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("Lista de Usuários");
+        setTitle("Lista de Condomínios");
 
         btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/edu/utfpr/pb/aulaswing/image/buscar.png"))); // NOI18N
         btnPesquisar.setText("Pesquisar");
